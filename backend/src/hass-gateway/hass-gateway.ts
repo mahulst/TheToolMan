@@ -6,6 +6,8 @@ import {
     OnGatewayDisconnect,
     OnGatewayInit,
 } from '@nestjs/websockets';
+import { accessToken } from './access_token';
+
 const WebSocketConstructor = require('ws');
 
 import { webSocket } from 'rxjs/webSocket';
@@ -19,8 +21,7 @@ export class HassGateway implements OnGatewayConnection, OnGatewayDisconnect {
         const ws = webSocket({ url: 'ws://localhost:8123/api/websocket', WebSocketCtor: WebSocketConstructor });
         ws.next({
             type: 'auth',
-            access_token:
-                'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiIwY2NhODkyNzBlNWU0NjYxODQxNmFkNjYxOGViYjJlNiIsImlhdCI6MTU2ODk4NTQ5NiwiZXhwIjoxNjAwNTIxNDk2fQ._O6Fc81c5p5s3C05M_dsRIpcQMP6ZIdSIQM-8FdZOOg',
+            access_token: accessToken,
         });
         ws.next({
             id: 18,
